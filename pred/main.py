@@ -13,7 +13,6 @@ import numpy as np
 from PIL import ExifTags
 import piexif
 
-
 def detect(upload_image):
     result_name = upload_image.name
     result_list = []
