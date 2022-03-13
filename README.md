@@ -6,6 +6,9 @@
 `haarcascade_frontalface_default.xml`
 
 #### 실행방법
+
+필요한 패키지 설치 (```$ pip install -r requirements.txt```)한 후
+
 * `python 05.img_face_judgement_lab.py [이미지 경로]`
 
 또는
