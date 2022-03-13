@@ -9,10 +9,10 @@
 
 필요한 패키지 설치 (```$ pip install -r requirements.txt```)한 후
 
-* `python 05.img_face_judgement_lab.py [이미지 경로]`
+* `$ python 05.img_face_judgement_lab.py [이미지 경로]`
 
 또는
 
-* `python manage.py runserver`
+* `$ python manage.py runserver`
 
 웹 링크에서 이미지 업로드하여 결과 확인
