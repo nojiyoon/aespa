@@ -7,13 +7,13 @@ import matplotlib.pyplot as plt
 import settings
 
 def detect_face(model, cascade_filepath, image):
-    # 이미지를 BGR형식에서 RGB형식으로 변환
-    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-    # 700 이상 이미지일때 비율 유지하면서 가로를 700으로 축소
+    # 가로 size 700 이상 이미지일때 비율 유지하면서 가로를 700으로 축소
     ratio = 700.0 / image.shape[1]
     dim = (700, int(image.shape[0] * ratio))
     if image.shape[0] > 700:
             image = cv2.resize(image, dim)
+    # 이미지를 BGR형식에서 RGB형식으로 변환
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     # plt.imshow(image)
     # plt.show()
     # print(image.shape)
@@ -40,7 +40,7 @@ def detect_face(model, cascade_filepath, image):
             face_image = cv2.resize(face_image, (64, 64))
             
             # 3.인식한 얼굴 주변에 붉은색 사각형 표시 cv2.rectangle(image, x,y, width, height, color, thickness)
-            cv2.rectangle(image, (xpos, ypos), (xpos+width, ypos+height), (255,0,0), thickness=2)
+            cv2.rectangle(image, (xpos, ypos), (xpos+width, ypos+height), (0,0,255), thickness=2)
 
             # 3-1. 차원 변경 
             face_image = np.expand_dims(face_image, axis=0)
@@ -48,7 +48,7 @@ def detect_face(model, cascade_filepath, image):
             # 4.인식한 얼굴로부터 이름가져오기 
             name =  detect_who(model, face_image)
             # 5.인식한 얼굴에 이름 표시 
-            cv2.putText(image, name, (xpos, ypos+height+20), cv2.FONT_HERSHEY_DUPLEX, 1, (255, 0, 0), 2)
+            cv2.putText(image, name, (xpos, ypos+height+20), cv2.FONT_HERSHEY_DUPLEX, 1, (0, 0, 255), 2)
     # 얼굴이 검출되지 않은 경우
     else:
         print("얼굴을 인식할 수 없습니다")

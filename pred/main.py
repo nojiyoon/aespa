@@ -32,7 +32,7 @@ def detect(upload_image):
     # 업로드된 이미지 파일을 메모리에서 OpenCV 이미지로 저장
     # image = np.asarray(Image.open(upload_image))
     image = np.asarray(image)
-    # size 700 이상 이미지일때 비율 유지하면서 가로를 700으로 축소
+    # 가로 size 700 이상 이미지일때 비율 유지하면서 가로를 700으로 축소
     ratio = 700.0 / image.shape[1]
     dim = (700, int(image.shape[0] * ratio))
     if image.shape[0] > 700:
@@ -60,14 +60,14 @@ def detect(upload_image):
             face_image = cv2.resize(face_image, (64, 64))
             # 인식한 얼굴 주변을 붉은 색으로 표시
             cv2.rectangle(image_rgb, (xpos, ypos),
-                          (xpos+width, ypos+height), (0, 0, 255), thickness=2)
+                          (xpos+width, ypos+height), (255, 0, 0), thickness=2)
             # 인식한 얼굴을 1장의 화상 이미지로 합하는 배열로 변환
             face_image = np.expand_dims(face_image, axis=0)
             # 인식한 얼굴에서 이름을 추출
             name, result = detect_who(model, face_image)
             # 인식한 얼굴에 이름을 추가
             cv2.putText(image_rgb, f"{count}. {name}", (xpos, ypos+height+20),
-                        cv2.FONT_HERSHEY_DUPLEX, 1, (0, 0, 255), 2)
+                        cv2.FONT_HERSHEY_DUPLEX, 1, (255, 0, 0), 2)
             # 결과를 리스트에 저장
             result_list.append(result)
             count = count + 1
@@ -101,8 +101,6 @@ def detect_who(model, face_image):
     elif name_number_label == 3:
         name = "Ningning"
     return (name, result)
-
-
 
 def rotate(img):
     if "exif" in img.info:

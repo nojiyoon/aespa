@@ -1,0 +1,14 @@
+pylint
+requests
+python-dotenv
+google-api-python-client
+opencv-python
+tensorflow
+keras
+graphviz
+pydotplus
+matplotlib
+Django
+Pillow
+piexif
+numpy
