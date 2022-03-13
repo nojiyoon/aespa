@@ -26,11 +26,11 @@ def detect(upload_image):
     model_file_path = settings.MODEL_FILE_PATH
     # Keras의 모델을 읽어오기
     model = keras.models.load_model(model_file_path)
-    # 회전되는 이미지가 있다면 원래 방향으로 설정
-    image = Image.open(upload_image)
-    image = rotate(image)
     # 업로드된 이미지 파일을 메모리에서 OpenCV 이미지로 저장
-    # image = np.asarray(Image.open(upload_image))
+    # image = np.asarray(Image.open(upload_image)) # 원래 코드
+    image = Image.open(upload_image)
+    # 추가 메소드: 회전되는 이미지가 있다면 원래 방향으로 설정
+    image = rotate(image)
     image = np.asarray(image)
     # 가로 size 700 이상 이미지일때 비율 유지하면서 가로를 700으로 축소
     ratio = 700.0 / image.shape[1]
