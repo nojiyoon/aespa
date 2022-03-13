@@ -14,7 +14,6 @@ from PIL import ExifTags
 import piexif
 
 
-
 def detect(upload_image):
     result_name = upload_image.name
     result_list = []
@@ -60,14 +59,14 @@ def detect(upload_image):
             face_image = cv2.resize(face_image, (64, 64))
             # 인식한 얼굴 주변을 붉은 색으로 표시
             cv2.rectangle(image_rgb, (xpos, ypos),
-                          (xpos+width, ypos+height), (255, 0, 0), thickness=2)
+                          (xpos+width, ypos+height), (0, 0, 255), thickness=2)
             # 인식한 얼굴을 1장의 화상 이미지로 합하는 배열로 변환
             face_image = np.expand_dims(face_image, axis=0)
             # 인식한 얼굴에서 이름을 추출
             name, result = detect_who(model, face_image)
             # 인식한 얼굴에 이름을 추가
             cv2.putText(image_rgb, f"{count}. {name}", (xpos, ypos+height+20),
-                        cv2.FONT_HERSHEY_DUPLEX, 1, (255, 0, 0), 2)
+                        cv2.FONT_HERSHEY_DUPLEX, 1, (0, 0, 255), 2)
             # 결과를 리스트에 저장
             result_list.append(result)
             count = count + 1
@@ -108,7 +107,7 @@ def rotate(img):
         #print(exif_dict)
         if piexif.ImageIFD.Orientation in exif_dict["0th"]:
             orientation = exif_dict["0th"].pop(piexif.ImageIFD.Orientation)
-            exif_bytes = piexif.dump(exif_dict)
+            # exif_bytes = piexif.dump(exif_dict)
             #print('{} orientation value is {}'.format(filename,str(orientation)))
             
             if orientation == 2:

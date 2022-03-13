@@ -12,14 +12,14 @@ def detect_face(model, cascade_filepath, image):
     dim = (700, int(image.shape[0] * ratio))
     if image.shape[0] > 700:
             image = cv2.resize(image, dim)
-    # 이미지를 BGR형식에서 RGB형식으로 변환
-    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-    # plt.imshow(image)
+    # 이미지를 BGR형식에서 RGB형식으로 `변환
+    image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    # plt.imshow(image_rgb)
     # plt.show()
     # print(image.shape)
     
     # 그레이스케일 이미지로 변환
-    image_gs = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
+    image_gs = cv2.cvtColor(image_rgb, cv2.COLOR_RGB2GRAY)
 
     # 얼굴인식 실행
     caacade = cv2.CascadeClassifier(cascade_filepath)
@@ -31,7 +31,7 @@ def detect_face(model, cascade_filepath, image):
         print(f"인식한 얼굴의 수: {len(faces)}")
         for (xpos, ypos, width, height) in faces:
             # 1.인식된 얼굴 자르기
-            face_image = image[ypos:ypos+height, xpos:xpos+width]
+            face_image = image_rgb[ypos:ypos+height, xpos:xpos+width]
             print(f"인식한 얼굴의 사이즈:{face_image.shape}")
             # 2.인식한 얼굴의 사이즈 축소
             if face_image.shape[0] < 64 or face_image.shape[1] < 64:
@@ -40,7 +40,7 @@ def detect_face(model, cascade_filepath, image):
             face_image = cv2.resize(face_image, (64, 64))
             
             # 3.인식한 얼굴 주변에 붉은색 사각형 표시 cv2.rectangle(image, x,y, width, height, color, thickness)
-            cv2.rectangle(image, (xpos, ypos), (xpos+width, ypos+height), (255,0,0), thickness=2)
+            cv2.rectangle(image_rgb, (xpos, ypos), (xpos+width, ypos+height), (255,0,0), thickness=2)
 
             # 3-1. 차원 변경 
             face_image = np.expand_dims(face_image, axis=0)
@@ -48,12 +48,12 @@ def detect_face(model, cascade_filepath, image):
             # 4.인식한 얼굴로부터 이름가져오기 
             name =  detect_who(model, face_image)
             # 5.인식한 얼굴에 이름 표시 
-            cv2.putText(image, name, (xpos, ypos+height+20), cv2.FONT_HERSHEY_DUPLEX, 1, (255,0,0), 2)
+            cv2.putText(image_rgb, name, (xpos, ypos+height+20), cv2.FONT_HERSHEY_DUPLEX, 1, (255,0,0), 2)
     # 얼굴이 검출되지 않은 경우
     else:
         print("얼굴을 인식할 수 없습니다")
 
-    return image
+    return image_rgb
 
 def detect_who(model, face_image):
     # 예측
