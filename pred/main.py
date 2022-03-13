@@ -89,7 +89,7 @@ def detect_who(model, face_image):
     predicted = model.predict(face_image)
     # 결과
     name = ""
-    result = f"카리나일 가능성:{predicted[0][0]*100:.3f}% / 윈터일 가능성:{predicted[0][1]*100:.3f}% / 지젤일 가능성:{predicted[0][2]*100:.3f}% / 닝닝일 가능성:{predicted[0][3]*100:.3f}%"
+    # result = f"카리나일 가능성:{predicted[0][0]*100:.3f}% / 윈터일 가능성:{predicted[0][1]*100:.3f}% / 지젤일 가능성:{predicted[0][2]*100:.3f}% / 닝닝일 가능성:{predicted[0][3]*100:.3f}%"
     name_number_label = np.argmax(predicted)
     if name_number_label == 0:
         name = "Karina"
@@ -99,6 +99,7 @@ def detect_who(model, face_image):
         name = "Giselle"
     elif name_number_label == 3:
         name = "Ningning"
+    result = f"카리나일 가능성:{predicted[0][0]*100:.3f}% / 윈터일 가능성:{predicted[0][1]*100:.3f}% / 지젤일 가능성:{predicted[0][2]*100:.3f}% / 닝닝일 가능성:{predicted[0][3]*100:.3f}%. 당신은 {name} 상입니다!"
     return (name, result)
 
 def rotate(img):
